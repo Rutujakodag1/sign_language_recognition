@@ -15,6 +15,12 @@
   <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <script src="https://kit.fontawesome.com/d733855d1a.js" crossorigin="anonymous"></script>
+ {# <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>#}
+ <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+ <script>
+  emailjs.init("6grf2-XKC5Z5HunXZ");
+</script>
 </head>
 
 <body> 
@@ -42,7 +48,7 @@
       </div>
         <div class="contact-form" style="max-width: 450px; margin: 0 auto;">
           <div class="form-mid">
-            <form action="javascript:sendmail()" method="post">
+            <form onsubmit="sendmail(); return false;" method="post">
               <div class="field">
                 <input type="text" class="form-control" name="Name" id="Name" placeholder="ENTER YOUR NAME" required="">
               </div>
@@ -69,12 +75,7 @@
   
 <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
 <!-- Add this EmailJS SDK before your closing </body> -->
-<script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
-<script type="text/javascript">
-  (function() {
-      emailjs.init("6grf2-XKC5Z5HunXZ"); // ⬅️ Replace with your EmailJS User ID
-  })();
-</script>
+
 
 <script>  
 function sendmail() {
@@ -84,11 +85,11 @@ function sendmail() {
     var message = $('#Message').val();
 
     var templateParams = {
-        from_name: name,
-        from_email: email,
-        subject: subject,
-        message: message
-    };
+      from_name: name,
+      reply_to: email,
+      subject: subject,
+      message: message
+  };
 
     emailjs.send('service_uvz0vvk', 'template_l4zmtph', templateParams)
     .then(function(response) {
